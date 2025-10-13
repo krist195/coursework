@@ -4,7 +4,7 @@
 
 
 //struct
-struct rec {
+struct rec{
     int id;
     int val;
     char name[100];
@@ -16,10 +16,13 @@ struct rec {
 
 //massivchik
 void print_recs(struct rec *a, int n){
+
     int i;
     printf(" # | id | val | name\n");
-    printf("---+----+-----+----------------\n");
-    for (i = 0; i < n; i++) {
+    printf("-------------------------------\n");
+
+    for (i = 0; i < n; i++){
+
         printf("%2d | %2d | %3d | %s\n", i + 1, a[i].id, a[i].val, a[i].name);
     }
     printf("\n");
@@ -30,7 +33,8 @@ void print_recs(struct rec *a, int n){
 
 // bubble sortik
 
-void sort_by_val(struct rec *a, int n){ 
+void sort_by_val(struct rec *a, int n){
+    
     int i, j;
     for (i = 0; i < n - 1; i++) {
         for (j = 0; j < n - 1 - i; j++){
