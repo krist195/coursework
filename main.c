@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
 //struct
 struct rec{
     int id;
@@ -12,18 +10,15 @@ struct rec{
 
 
 
-
-
-//massivchik
 void print_recs(struct rec *a, int n){
-
     int i;
+
     printf(" # | id | val | name\n");
     printf("-------------------------------\n");
 
     for (i = 0; i < n; i++){
-
         printf("%2d | %2d | %3d | %s\n", i + 1, a[i].id, a[i].val, a[i].name);
+
     }
     printf("\n");
 }
@@ -36,22 +31,20 @@ void print_recs(struct rec *a, int n){
 void sort_by_val(struct rec *a, int n){
     
     int i, j;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - 1 - i; j++){
+
+    for (i = 0; i < n - 1; i++){  //stolko strok
+
+        for (j = 0; j < n - 1 - i; j++){ // 
+
             if (a[j].val > a[j + 1].val){
                 struct rec t = a[j];
+
                 a[j] = a[j + 1];
                 a[j + 1] = t;
             }
         }
     }
 }
-
-
-
-
-
-
 
 
 int main(void){
@@ -63,11 +56,9 @@ int main(void){
 
 
     printf("kol-vo strok (1..100)???: ");
-    scanf("%d", &n);
 
+    scanf("%d", &n);  //zapisivaem kolichestvo strok
     if (n <= 0 || n > 100) return 0;
-
-
 
 
     printf("vvedi %d strok: id val name (name = odno_slovo)\n", n); //uznaem skolko strok nado vvesti
@@ -81,18 +72,19 @@ int main(void){
 
 
 
-    puts("do MEGA sort:");
-    print_recs(a, n);
+    printf("do MEGA sort:");
+    print_recs(a, n); //vivodim na ekran chto vveli
 
-    sort_by_val(a, n);
+    sort_by_val(a, n);  //sortiruem
 
-    puts("posle MEGA sort:");
-    print_recs(a, n);
+    printf("posle MEGA sort:");
+    print_recs(a, n); //vivodim uzhe sortirovanij
 
 
 
     return 0;
 
 }
+
 
 
