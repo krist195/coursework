@@ -1,10 +1,9 @@
-#include <stddef.h> // подключаем NULL
-#include "sortirovka.h" // подключаем прототип сортировки
-#include "stroki.h" // подключаем простые сравнения строк
+#include "sortirovka.h"
+#include "stroki.h"
 
 static int compare_records_by_field(struct record *first, struct record *second, const char *field_name) // внутри файла сравниваем две записи
 {
-    if (field_name == NULL) // проверяем строку поля
+    if (field_name == 0) // проверяем строку поля
     {
         return 0; // если поля нет, возвращаем 0
     }
@@ -45,20 +44,20 @@ static int compare_records_by_field(struct record *first, struct record *second,
         return first->birth_day - second->birth_day; // возвращаем разницу дней
     }
     return text_compare(first->name, second->name); // по умолчанию сравниваем по имени
-} // конец функции compare_records_by_field
+} 
 
 static void swap_records(struct record *a, struct record *b) // меняем местами две записи
 {
     struct record temp = *a; // сохраняем первую запись во временную переменную
     *a = *b; // записываем вторую запись на место первой
     *b = temp; // помещаем временную запись на место второй
-} // конец функции swap_records
+}
 
 void bubble_sort_records(struct record *records, int record_count, const char *field_name) // сортировка записей пузырьком
 {
     int i; // индекс цикла
     int swapped; // флаг был ли обмен
-    if (records == NULL) // проверяем указатель на массив
+    if (records == 0) // проверяем указатель на массив
     {
         return; // если указатель пустой, выходим
     }
@@ -78,4 +77,4 @@ void bubble_sort_records(struct record *records, int record_count, const char *f
             }
         }
     } while (swapped); // повторяем пока делаются обмены
-} // конец функции bubble_sort_records
+}

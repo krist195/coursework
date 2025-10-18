@@ -1,6 +1,6 @@
 #pragma once
 
-#include "zapisi.h" // подключаем структуры record и parent
+#include "zapisi.h"
 
 int read_parents(struct parent *parents, int max_parents); // читаем родителей из файла
 int read_records(struct record *records, int max_records); // читаем учеников из файла

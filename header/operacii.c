@@ -1,11 +1,10 @@
-#include <stddef.h> // подключаем NULL
-#include "operacii.h" // подключаем прототипы операций
-#include "stroki.h" // подключаем простые функции сравнения строк
+#include "operacii.h"
+#include "stroki.h"
 
 int add_record(struct record *records, int record_count, int max_records, struct record new_record) // добавляем нового ученика
 {
     int i; // индекс для проверки
-    if (records == NULL) // проверяем указатель на массив
+    if (records == 0) // проверяем указатель на массив
     {
         return record_count; // если массив пустой, возвращаем исходное количество
     }
@@ -28,11 +27,11 @@ int remove_record_by_phone(struct record *records, int record_count, const char 
 {
     int i; // индекс поиска
     int j; // индекс для сдвига
-    if (records == NULL) // проверяем массив
+    if (records == 0) // проверяем массив
     {
         return record_count; // если массив пустой, возвращаем исходное количество
     }
-    if (phone == NULL) // проверяем телефон
+    if (phone == 0) // проверяем телефон
     {
         return record_count; // если телефона нет, ничего не делаем
     }
@@ -54,11 +53,11 @@ int filter_by_group(struct record *records, int record_count, const char *group,
 {
     int i; // индекс входного массива
     int out_index = 0; // индекс для результата
-    if (records == NULL || result == NULL) // проверяем указатели
+    if (records == 0 || result == 0) // проверяем указатели
     {
         return 0; // если указателей нет, ничего не возвращаем
     }
-    if (group == NULL) // проверяем строку группы
+    if (group == 0) // проверяем строку группы
     {
         return 0; // если группы нет, ничего не возвращаем
     }
@@ -77,7 +76,7 @@ int filter_by_parent(struct record *records, int record_count, int parent_id, st
 {
     int i; // индекс входного массива
     int out_index = 0; // индекс результата
-    if (records == NULL || result == NULL) // проверяем указатели
+    if (records == 0 || result == 0) // проверяем указатели
     {
         return 0; // если указателей нет, ничего не возвращаем
     }

@@ -1,5 +1,5 @@
-#include <stdio.h> // подключаем функции вывода
-#include "pokaz.h" // подключаем прототипы
+#include <stdio.h>
+#include "pokaz.h"
 
 struct parent *find_parent(struct parent *parents, int parent_count, int parent_id) // ищем родителя по идентификатору
 {
@@ -12,7 +12,7 @@ struct parent *find_parent(struct parent *parents, int parent_count, int parent_
         }
     }
     return NULL; // если никого не нашли, возвращаем NULL
-} // конец функции find_parent
+}
 
 void show_records(struct record *records, int record_count, struct parent *parents, int parent_count) // печатаем таблицу учеников
 {
@@ -35,4 +35,4 @@ void show_records(struct record *records, int record_count, struct parent *paren
         snprintf(birthday_text, sizeof(birthday_text), "%02d.%02d.%04d", records[i].birth_day, records[i].birth_month, records[i].birth_year); // собираем дату рождения из чисел
         printf("%2d | %-12s | %-12s | %-13s | %-24s | %-10s | %-12s | %-12s | %-20s\n", i + 1, records[i].name, records[i].surname, records[i].personal_code, records[i].email, records[i].group, records[i].phone, birthday_text, parent_text); // выводим строку таблицы
     }
-} // конец функции show_records
+} 
