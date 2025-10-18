@@ -107,6 +107,7 @@ int main(int argc, char *argv[])
             printf("Wrong arguments for add\n"); // сообщаем об ошибке
             show_usage(argv[0]); // подсказываем правильный формат
             return 1; 
+        }
         if (!copy_text(new_record.name, argv[2], sizeof(new_record.name))) // копируем имя
         {
             printf("Bad name value\n"); 

@@ -1,4 +1,4 @@
-#pragma once // следим чтобы заголовок подключился только один раз
+#pragma once
 
 #include "zapisi.h" // подключаем структуры record и parent
 
@@ -6,4 +6,3 @@ int add_record(struct record *records, int record_count, int max_records, struct
 int remove_record_by_phone(struct record *records, int record_count, const char *phone); // удаляем запись по номеру телефона
 int filter_by_group(struct record *records, int record_count, const char *group, struct record *result); // выбираем учеников по группе
 int filter_by_parent(struct record *records, int record_count, int parent_id, struct record *result); // выбираем учеников по родителю
-
