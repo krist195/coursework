@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
-TARGET = main.o
+TARGET = main.exe
 SRC = main.c \
       header/fajl.c \
       header/pokaz.c \
