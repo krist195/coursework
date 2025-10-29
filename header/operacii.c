@@ -1,9 +1,9 @@
 #include "operacii.h"
 #include "stroki.h"
 
-int add_record(struct record *records, int record_count, int max_records, struct record new_record) // добавляем нового ученика
+int add_record(struct record *records, int record_count, int max_records, struct record new_record)
 {
-    int i; // индекс для проверки
+    int i; //для проверки
     if (records == 0) // проверяем указатель на массив
     {
         return record_count; // если массив пустой, возвращаем исходное количество

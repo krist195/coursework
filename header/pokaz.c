@@ -33,6 +33,6 @@ void show_records(struct record *records, int record_count, struct parent *paren
             snprintf(parent_text, sizeof(parent_text), "%s", "N/A"); // записываем текст N/A
         }
         snprintf(birthday_text, sizeof(birthday_text), "%02d.%02d.%04d", records[i].birth_day, records[i].birth_month, records[i].birth_year); // собираем дату рождения из чисел
-        printf("%2d | %-12s | %-12s | %-13s | %-24s | %-10s | %-12s | %-12s | %-20s\n", i + 1, records[i].name, records[i].surname, records[i].personal_code, records[i].email, records[i].group, records[i].phone, birthday_text, parent_text); // выводим строку таблицы
+        printf("%2d | %-12s | %-12s | %-13s | %-24s | %-10s | %-12s | %-12s | %-20s\n", i + 1, records[i].name, records[i].surname, records[i].personal_code, records[i].email, records[i].group, records[i].phone, birthday_text, parent_text);
     }
 } 

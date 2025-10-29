@@ -1,6 +1,6 @@
 #pragma once
 
-#include "zapisi.h" // подключаем структуры record и parent
+#include "zapisi.h"
 
 int add_record(struct record *records, int record_count, int max_records, struct record new_record); // добавляем запись об ученике
 int remove_record_by_phone(struct record *records, int record_count, const char *phone); // удаляем запись по номеру телефона

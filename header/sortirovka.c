@@ -5,7 +5,7 @@ static int compare_records_by_field(struct record *first, struct record *second,
 {
     if (field_name == 0) // проверяем строку поля
     {
-        return 0; // если поля нет, возвращаем 0
+        return 0;
     }
     if (text_equals(field_name, "name")) // если требуется сравнение по имени
     {
@@ -53,7 +53,7 @@ static void swap_records(struct record *a, struct record *b) // меняем м�
     *b = temp; // помещаем временную запись на место второй
 }
 
-void bubble_sort_records(struct record *records, int record_count, const char *field_name) // сортировка записей пузырьком
+void bubble_sort_records(struct record *records, int record_count, const char *field_name)
 {
     int i; // индекс цикла
     int swapped; // флаг был ли обмен
@@ -76,5 +76,5 @@ void bubble_sort_records(struct record *records, int record_count, const char *f
                 swapped = 1; // отмечаем что обмен был
             }
         }
-    } while (swapped); // повторяем пока делаются обмены
+    } while (swapped);
 }

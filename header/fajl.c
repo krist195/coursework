@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "fajl.h" 
 
-/* Читае родительский бд и бд школьников и так же записываем */
 
 extern char record_file_path[]; // объявляем путь к файлу учеников из другого файла
 extern char parent_file_path[]; // объявляем путь к файлу родителей из другого файла
@@ -12,9 +11,9 @@ int read_parents(struct parent *parents, int max_parents) // читаем род
     int count = 0; // создаем счетчик записей
     if (!file) // проверяем удалось ли открыть файл
     {
-        return 0; // если открыть не получилось
+        return 0;
     }
-    while (count < max_parents) // читаем пока есть место
+    while (count < max_parents)
     {
         struct parent temp_parent; // создаем временного родителя
         int read_items = fscanf(file, "%d %99s %99s", &temp_parent.id, temp_parent.name, temp_parent.surname); // читаем одну строку
@@ -26,9 +25,9 @@ int read_parents(struct parent *parents, int max_parents) // читаем род
         parents[count] = temp_parent; // копируем временную структуру в массив
         count++; // увеличиваем количество найденных родителей
     }
-    fclose(file); // закрываем файл после чтения
+    fclose(file);
 
-    return count; // возвращаем количество загруженных родителей
+    return count;
 }
 
 
@@ -52,8 +51,8 @@ int read_records(struct record *records, int max_records) // читаем уче
         records[count] = temp_record; // сохраняем ученика в массив
         count++; // увеличиваем счетчик
     }
-    fclose(file); // закрываем файл
-    return count; // возвращаем количество прочитанных учеников
+    fclose(file);
+    return count;
 }
 
 int write_records(struct record *records, int record_count) // записываем учеников обратно в файл
@@ -68,6 +67,6 @@ int write_records(struct record *records, int record_count) // записыва�
     {
         fprintf(file, "%s %s %s %s %s %s %d %d %d %d\n", records[i].name, records[i].surname, records[i].personal_code, records[i].email, records[i].group, records[i].phone, records[i].parent_id, records[i].birth_day, records[i].birth_month, records[i].birth_year); // записываем строку ученика
     }
-    fclose(file); // закрываем файл
-    return 1; // возвращаем успех
+    fclose(file);
+    return 1;
 }
