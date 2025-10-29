@@ -68,6 +68,7 @@ void show_usage(const char *program_name)
     printf("  %s remove Phone\n", program_name); // показываем команду remove
     printf("  %s sort field [field...]\n", program_name); // показываем команду sort
     printf("  %s group GroupName [field]\n", program_name); // показываем команду group
+    printf("  %s group sort GroupName [field...]\n", program_name); // новая команда сортировки внутри группы
     printf("  %s parent ParentID\n", program_name); // показываем команду parent
     printf("Fields: name, surname, group, phone, parent, birthday, personal, code\n"); // перечисляем доступные поля
 } 
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
 
 
     if (text_equals(argv[1], "add")) // проверяем команду add
+
     {
         struct record new_record; // создаем новую структуру ученика
         if (argc != 12) // проверяем количество аргументов
@@ -110,6 +112,7 @@ int main(int argc, char *argv[])
         }
         if (!copy_text(new_record.name, argv[2], sizeof(new_record.name))) // копируем имя
         {
+            
             printf("Bad name value\n"); 
             return 1; 
         }
@@ -174,6 +177,9 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+
+
+
     if (text_equals(argv[1], "remove")) // проверяем команду remove
 
     {
@@ -199,6 +205,8 @@ int main(int argc, char *argv[])
         printf("Removed record with phone %s\n", argv[2]); // подтверждаем удаление
         return 0; 
     }
+
+
     if (text_equals(argv[1], "sort")) // проверяем команду sort
     {
         int i; // индекс для перебора полей
@@ -221,39 +229,80 @@ int main(int argc, char *argv[])
         show_records(records, record_count, parents, parent_count); // выводим отсортированную таблицу
         return 0;
     }
+
     if (text_equals(argv[1], "group")) // проверяем команду group
     {
         struct record filtered[100]; // создаем массив для выбранных записей
         int filtered_count; // переменная для количества найденных записей
-        const char *sort_field = "birthday"; // сортируем по дате рождения по умолчанию
-        if (argc != 3 && argc != 4) // проверяем количество аргументов
+        if (argc >= 3 && text_equals(argv[2], "sort"))
         {
-            printf("Wrong arguments for group\n"); // сообщаем об ошибке
-            show_usage(argv[0]); // подсказываем синтаксис
-            return 1; // завершаем с ошибкой
-        }
-        if (argc == 4) // если указано поле сортировки
-        {
-            sort_field = argv[3]; // сохраняем поле сортировки
-        }
-        filtered_count = filter_by_group(records, record_count, argv[2], filtered); // фильтруем записи по группе
-        if (filtered_count == 0) // проверяем нашли ли мы кого-нибудь
-        {
-            printf("No records in group %s\n", argv[2]); // выводим сообщение что группа пустая
+            const char *group_name; // имя выбранной группы
+            int i; // индекс для перебора полей сортировки
+            if (argc < 4) // требуется указать группу
+            {
+                printf("Wrong arguments for group sort\n");
+                show_usage(argv[0]); // подсказываем синтаксис
+                return 1;
+            }
+            group_name = argv[3]; // сохраняем имя группы
+            filtered_count = filter_by_group(records, record_count, group_name, filtered); // фильтруем записи по группе
+            if (filtered_count == 0) // проверяем нашли ли мы кого-нибудь
+            {
+                printf("No records in group %s\n", group_name);
+                return 0;
+            }
+            if (argc == 4) // если дополнительные поля не указаны, сортируем по фамилии и имени
+            {
+                bubble_sort_records(filtered, filtered_count, "name"); // вторичный ключ
+                bubble_sort_records(filtered, filtered_count, "surname"); // первичный ключ
+                
+            }
+            else
+            {
+                for (i = 4; i < argc; i++)
+                {
+                    bubble_sort_records(filtered, filtered_count, argv[i]); // сортируем по указанным полям
+                }
+            }
+            show_records(filtered, filtered_count, parents, parent_count); // выводим таблицу отфильтрованных учеников
             return 0;
         }
-        bubble_sort_records(filtered, filtered_count, sort_field); // сортируем найденные записи
-        show_records(filtered, filtered_count, parents, parent_count); // выводим таблицу отфильтрованных учеников
-        return 0; 
+
+        else
+        {
+            const char *sort_field = "birthday"; // сортируем по дате рождения по умолчанию
+            if (argc != 3 && argc != 4) // проверяем количество аргументов
+            {
+                printf("Wrong arguments for group\n"); // сообщаем об ошибке
+                show_usage(argv[0]); // подсказываем синтаксис
+                return 1; // завершаем с ошибкой
+            }
+            if (argc == 4) // если указано поле сортировки
+            {
+                sort_field = argv[3]; // сохраняем поле сортировки
+            }
+            filtered_count = filter_by_group(records, record_count, argv[2], filtered); // фильтруем записи по группе
+            if (filtered_count == 0) // проверяем нашли ли мы кого-нибудь
+            {
+                printf("No records in group %s\n", argv[2]); // выводим сообщение что группа пустая
+                return 0;
+            }
+            bubble_sort_records(filtered, filtered_count, sort_field); // сортируем найденные записи
+            show_records(filtered, filtered_count, parents, parent_count); // выводим таблицу отфильтрованных учеников
+            return 0; 
+        }
     }
+
     if (text_equals(argv[1], "parent")) // проверяем команду parent
     {
         struct record filtered[100]; // создаем массив для записей родителя
         int filtered_count; // количество найденных записей
         int parent_id; // идентификатор родителя
         if (argc != 3) // проверяем количество аргументов
+
         {
             printf("Wrong arguments for parent\n"); // сообщаем об ошибке
+
             show_usage(argv[0]); // подсказываем синтаксис
             return 1;
         }
@@ -270,12 +319,16 @@ int main(int argc, char *argv[])
         }
         bubble_sort_records(filtered, filtered_count, "name"); // сортируем найденных учеников по имени
         show_records(filtered, filtered_count, parents, parent_count); // выводим результат
+
         return 0; 
     }
+
+
     if (text_equals(argv[1], "help")) // проверяем команду help
     {
+
         show_usage(argv[0]); // выводим подсказку
-        return 0; 
+        return 0;
     }
 
 
@@ -293,6 +346,7 @@ int main(int argc, char *argv[])
 //./main.o remove 281992948 - удаляет ученика по номеру телефона (Только по номеру телефона)
 //./main.o sort name/surname/phone/birthday - сортирует бд по имени/фамилии/номеру телефона/дате рождения 
 //./main.o group px24 name - показывает всех учеников из группы px24, отсортированных по имени
+//./main.o group sort px24 - показывает учеников из группы px24, отсортированных по фамилии и имени
 //./main.o parent 2 - показывает всех учеников с% родителем с id 2
 
 

@@ -88,5 +88,5 @@ int filter_by_parent(struct record *records, int record_count, int parent_id, st
             out_index++; // увеличиваем счетчик найденных записей
         }
     }
-    return out_index; // возвращаем количество найденных учеников
-} // конец функции filter_by_parent
+    return out_index;
+}
